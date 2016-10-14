@@ -1,3 +1,0 @@
-export default {
-  GITHUB_TOKEN: 'xxx'
-};
