@@ -1,0 +1,131 @@
+{
+  "extends": "airbnb",
+
+  // 2 will report an error, meaning the eslint grunt task will fail.
+  // 1 will report a warning, but will not cause the task to fail.
+  // All rules that are set to 0 are off.
+  "rules": {
+    // Error if trying to access arguments.caller or arguments.callee
+    "no-caller": 2,
+
+    // Don't check for use of strict mode
+    "strict": 0,
+
+    // Only warn about new Captial because Angular uses $constructorName
+    "new-cap": 1,
+
+    // Error for use of alert, confirm, and prompt globals
+    "no-alert": 2,
+
+    // Airbnb dictate 100, but we <3 80
+    // Ignore for i18n filter and import statements
+    "max-len": [2, {
+      code: 80,
+      tabWidth: 2,
+      ignorePattern: "\\$filter\\('i18n'|'i18n_n'\\)|^import",
+      ignoreUrls: true
+    }],
+
+    // So we can continue to inject bootstrap around the place
+    "no-unused-vars": [2, { "argsIgnorePattern": "bootstrap" }],
+
+    // Use typeof properly
+    "valid-typeof": 2,
+
+    // Use JSDocs properly
+    "valid-jsdoc": [2, { "requireReturn": false }],
+
+    // For our dodgy regexes
+    "no-useless-escape": 1,
+
+    "consistent-return": 1,
+
+    // We use function() in Angular stuff and tests
+    "prefer-arrow-callback": 0,
+    "func-names": 0,
+
+    // Otherwise it bitches about adding $scope props etc.
+    "no-param-reassign": 0,
+
+    // End files with \n
+    "eol-last": 2,
+
+    // Ignore import resolver due to paths specified in e2e.
+    // TODO: We can implement our own resolver see:
+    // https://github.com/benmosher/eslint-plugin-import/blob/master/resolvers/README.md
+    "import/no-unresolved": 0,
+
+    "spaced-comment": [
+      "error",
+      "always",
+      {
+        "exceptions": [
+          "@ngInject"
+          ]
+      }
+    ]
+  },
+
+  "globals": {
+    // Used in both
+    "window": false,
+    "document": false,
+    "angular": false,
+    "moment": false,
+
+    // Used in the browser
+    "XMLSerializer": false,
+    "DOMParser": false,
+    "srcDoc": false,
+    "XPathResult": false,
+    "XPathEvaluator": false,
+    "Jed": false,
+    "google": false,
+    "Highcharts": false,
+    "Modernizr" : false,
+    "Node": false,
+    "Aviary": false,
+    "Slider": false,
+    "Image": false,
+    "Prism": false,
+    "angularDragula": false,
+
+    // Used in tests
+    "jasmine": false,
+    "spyOn": false,
+    "describe": false,
+    "beforeEach": false,
+    "afterEach": false,
+    "inject": false,
+    "module": false,
+    "it": false,
+    "by": false,
+    "browser": false,
+    "expect": false,
+    "phantomClick": false,
+    "require": false,
+    "recompile": false,
+    "getMock": false,
+    "generateStringByLength": false,
+    "Element": false,
+    "element": false,
+    "beforeAll": false,
+    "afterAll": false,
+    "protractor": false,
+    "Raygun": false,
+
+    // Used in Node
+    "__dirname": false,
+    "process": false
+  },
+  "env": {
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "modules": true,
+      "experimentalObjectRestSpread": true
+    }
+  }
+}
