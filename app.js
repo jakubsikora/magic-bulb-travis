@@ -33,47 +33,68 @@ function setEventHandlers() {
 }
 
 function toggleOnOff() {
+  const travisStatus = document.querySelector('.travis-status');
+
   if (bulb.checkOn()) {
     clearInterval(intervalId);
+    travisStatus.innerHTML = '';
+  } else {
+    clearAlert();
+    document.querySelector('.travis-status').classList.add('alert-info');
+    travisStatus.innerHTML = 'Waiting for user...';
   }
 
   bulb.turnOnOff();
 }
 
 function initTravis() {
-  const turnOnOff = document.querySelector('.input');
+  const travisStatus = document.querySelector('.travis-status');
 
   travis.init();
 
-  if (! bulb.checkOn() ) {
-    bulb.turnOn();
-    turnOnOff.setAttribute('checked', true);
-  }
+  if (intervalId) clearInterval(intervalId);
 
   intervalId = setInterval(() => {
-    console.log(travis.status);
+    clearAlert();
 
     switch (travis.status) {
       case CREATED:
-        bulb.white();
+        bulb.setBlueBlink();
+        document.querySelector('.travis-status').classList.add('alert-info');
+        travisStatus.innerHTML = 'Travis job created. Initilizing...';
       break;
 
       case STARTED:
         bulb.setAmberBlink();
+        document.querySelector('.travis-status').classList.add('alert-warning');
+        travisStatus.innerHTML = 'Travis is running... Hope for the best :D';
       break;
 
       case PASSED:
         bulb.green();
+        document.querySelector('.travis-status').classList.add('alert-success');
+        travisStatus.innerHTML = 'Passed! All good!';
       break;
 
       case FAILED:
-        bulb.red();
+        bulb.setRedBlink();
+        document.querySelector('.travis-status').classList.add('alert-danger');
+        travisStatus.innerHTML = 'Travis failed :/';
       break;
 
       default:
         bulb.setBlueBlink();
+        document.querySelector('.travis-status').classList.add('alert-info');
+        travisStatus.innerHTML = 'Connecting to Travis...';
     }
   }, 1000);
+}
+
+function clearAlert() {
+  document.querySelector('.travis-status').classList.remove('alert-info');
+  document.querySelector('.travis-status').classList.remove('alert-danger');
+  document.querySelector('.travis-status').classList.remove('alert-warning');
+  document.querySelector('.travis-status').classList.remove('alert-success');
 }
 
 setEventHandlers();

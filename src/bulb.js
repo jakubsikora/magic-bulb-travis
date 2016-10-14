@@ -40,8 +40,6 @@ class Bulb {
     document.querySelector('.btn-connect').classList.add('hidden');
     document.querySelector('.start-icon').classList.add('hidden');
 
-    document.querySelector('.color-buttons').classList.remove('hidden');
-    document.querySelector('.select-repository').classList.remove('hidden');
     document.querySelector('.btn-travis').classList.remove('hidden');
     document.querySelector('.on-off-switcher').classList.remove('hidden');
     document.querySelector('.connected-icon').classList.remove('hidden');
@@ -85,10 +83,16 @@ class Bulb {
 
   activate() {
     document.querySelector('.fa-lightbulb-o').classList.add('icon-active');
+    document.querySelector('.select-repository').classList.remove('hidden');
+    document.querySelector('.color-buttons').classList.remove('hidden');
+    document.querySelector('.status-wrapper').classList.remove('hidden');
   }
 
   deactivate() {
     document.querySelector('.fa-lightbulb-o').classList.remove('icon-active');
+    document.querySelector('.select-repository').classList.add('hidden');
+    document.querySelector('.color-buttons').classList.add('hidden');
+    document.querySelector('.status-wrapper').classList.add('hidden');
   }
 
   toggleButtons() {
@@ -114,6 +118,13 @@ class Bulb {
 
   setBlueBlink() {
     let data = new Uint8Array([0xbb, 0x28, 0x01, 0x44]);
+
+    return ledCharacteristic.writeValue(data)
+      .catch(err => console.log('Error when writing value! ', err));
+  }
+
+  setRedBlink() {
+    let data = new Uint8Array([0xbb, 0x26, 0x01, 0x44]);
 
     return ledCharacteristic.writeValue(data)
       .catch(err => console.log('Error when writing value! ', err));
