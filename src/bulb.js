@@ -85,8 +85,15 @@ class Bulb {
       .catch(err => console.log('Error when writing value! ', err));
   }
 
-  startBlinking() {
+  setAmberBlink() {
     let data = new Uint8Array([0xbb, 0x29, 0x01, 0x44]);
+
+    return ledCharacteristic.writeValue(data)
+      .catch(err => console.log('Error when writing value! ', err));
+  }
+
+  setBlueBlink() {
+    let data = new Uint8Array([0xbb, 0x28, 0x01, 0x44]);
 
     return ledCharacteristic.writeValue(data)
       .catch(err => console.log('Error when writing value! ', err));

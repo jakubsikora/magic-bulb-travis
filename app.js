@@ -28,7 +28,7 @@ function setEventHandlers() {
   redOn.addEventListener('click', bulb.red.bind(bulb));
   greenOn.addEventListener('click', bulb.green.bind(bulb));
   blueOn.addEventListener('click', bulb.blue.bind(bulb));
-  amberOn.addEventListener('click', bulb.startBlinking.bind(bulb));
+  amberOn.addEventListener('click', bulb.setAmberBlink.bind(bulb));
   whiteOn.addEventListener('click', bulb.white.bind(bulb));
   btnStartTravis.addEventListener('click', initTravis);
 }
@@ -41,18 +41,23 @@ function initTravis() {
 
     switch (travis.status) {
       case CREATED:
+        bulb.white();
       break;
 
       case STARTED:
+        bulb.setAmberBlink();
       break;
 
       case PASSED:
+        bulb.green();
       break;
 
       case FAILED:
+        bulb.red();
       break;
 
       default:
+        bulb.setBlueBlink();
     }
   }, 1000);
 }
