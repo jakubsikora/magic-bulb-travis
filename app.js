@@ -9,8 +9,7 @@ const travis = new Travis();
 function setEventHandlers() {
   const btnConnect = document.querySelector('.btn-connect');
   const btnStartTravis = document.querySelector('.btn-travis');
-  const turnOff = document.querySelector('.turn-off');
-  const turnOn = document.querySelector('.turn-on');
+  const turnOnOff = document.querySelector('.input');
   const redOn = document.querySelector('.red-btn');
   const greenOn = document.querySelector('.green-btn');
   const amberOn = document.querySelector('.amber-btn');
@@ -21,8 +20,7 @@ function setEventHandlers() {
   btnConnect.addEventListener('click', bulb.connect.bind(bulb));
 
   // Turn on or off
-  turnOff.addEventListener('click', bulb.turnOff.bind(bulb));
-  turnOn.addEventListener('click', bulb.turnOn.bind(bulb));
+  turnOnOff.addEventListener('click', bulb.turnOnOff.bind(bulb));
 
   // Color controls
   redOn.addEventListener('click', bulb.red.bind(bulb));
