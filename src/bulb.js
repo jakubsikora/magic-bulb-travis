@@ -38,8 +38,12 @@ class Bulb {
 
   onConnected() {
     document.querySelector('.btn-connect').classList.add('hidden');
+    document.querySelector('.start-icon').classList.add('hidden');
     document.querySelector('.color-buttons').classList.remove('hidden');
-    document.querySelector('.power-button').classList.remove('hidden');
+    document.querySelector('.select-repository').classList.remove('hidden');
+    document.querySelector('.btn-travis').classList.remove('hidden');
+    document.querySelector('.on-off-switcher').classList.remove('hidden');
+
     turnedOn = false;
   }
 

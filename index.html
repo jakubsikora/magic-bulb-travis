@@ -6,49 +6,86 @@
     <meta http-equiv="Content-Language" content="EN-GB">
     <title>Travis Status with bluetooth bulb</title>
     <link rel="stylesheet" type="text/css" href="/dist/bundle.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   </head>
   <body>
     <div id="root"></div>
-    <button type='button' class='btn-connect'>Connect</button>
+    <div class="container">
+      <div class="row start-icon">
+        <div class="col-md-12 text-center">
+          <i class="fa fa-lightbulb-o icon"></i>
+        </div>
+      </div>
 
-    <select class='select-repository' name='repository' id='repository'>
-      <option value='pure-migrations'>pure-migrations</option>
-      <option value='frontend'>frontend</option>
-      <option value='backend'>backend</option>
-      <option value='sysops_tools'>sysops_tools</option>
-    </select>
-    <button type='button' class='btn-travis'>Start</button>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <button type="button" class="btn-connect btn btn-success btn-lg">
+            Connect to the Magic bulb
+            <i class="fa fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
 
-    <div class="power-button hidden">
-      <button class="btn btn-danger turn-off">
-        TurnOnOff
-      </button>
+      <div class="row">
+        <div class="cold-md-12">
+          <select class="select-repository form-control hidden" name='repository' id='repository'>
+            <option value='pure-migrations'>pure-migrations</option>
+            <option value='frontend'>frontend</option>
+            <option value='backend'>backend</option>
+            <option value='sysops_tools'>sysops_tools</option>
+          </select>
 
-      <button class="btn btn-warning turn-on">
-        TurnOn
-      </button>
-    </div>
+          <button type='button' class="btn btn-sucess btn-travis hidden">Start</button>
+        </div>
+      </div>
 
-    <div class="col-md-12 color-buttons hidden">
-      <button class="btn btn-danger red-btn">
-          Red
-      </button>
+    	<div class="row on-off-switcher hidden">
+        <div class="col-md-5">
+          <label class="on-off-label">OFF/ON</label>
+        </div>
+        <div class="col-md-5">
+          <label class="switch">
+            <input type="checkbox" class="input">
+            <div class="slider"></div>
+          </label>
+	      </div>
+      </div>
 
-      <button class="btn btn-success green-btn">
-          Green
-      </button>
+      <!-- <div class="row power-button hidden">
+        <div class="col-md-12">
+          <button class="btn btn-danger turn-off">
+            TurnOnOff
+          </button>
 
-      <button class="btn btn-warning amber-btn">
-          Amber
-      </button>
+          <button class="btn btn-warning turn-on">
+            TurnOn
+          </button>
+        </div>
+      </div> -->
 
-      <button class="btn btn-primary blue-btn">
-          Blue
-      </button>
+      <div class="color-buttons hidden">
+        <div class="col-md-12">
+          <button class="btn btn-danger red-btn">
+              Red
+          </button>
 
-      <button class="btn btn-default white-btn">
-          White
-      </button>
+          <button class="btn btn-success green-btn">
+              Green
+          </button>
+
+          <button class="btn btn-warning amber-btn">
+              Amber
+          </button>
+
+          <button class="btn btn-primary blue-btn">
+              Blue
+          </button>
+
+          <button class="btn btn-default white-btn">
+              White
+          </button>
+        </div>
+      </div>
     </div>
 
     <script src="/dist/bundle.js"></script>
