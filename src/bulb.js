@@ -39,10 +39,12 @@ class Bulb {
   onConnected() {
     document.querySelector('.btn-connect').classList.add('hidden');
     document.querySelector('.start-icon').classList.add('hidden');
+
     document.querySelector('.color-buttons').classList.remove('hidden');
     document.querySelector('.select-repository').classList.remove('hidden');
     document.querySelector('.btn-travis').classList.remove('hidden');
     document.querySelector('.on-off-switcher').classList.remove('hidden');
+    document.querySelector('.connected-icon').classList.remove('hidden');
 
     turnedOn = false;
   }
@@ -74,9 +76,19 @@ class Bulb {
   turnOnOff() {
     if (turnedOn) {
       this.turnOff();
+      this.deactivate();
     } else {
-      this.turnOn().then(() => this.white());
+      this.turnOn().then(() => this.green());
+      this.activate();
     }
+  }
+
+  activate() {
+    document.querySelector('.fa-lightbulb-o').classList.add('icon-active');
+  }
+
+  deactivate() {
+    document.querySelector('.fa-lightbulb-o').classList.remove('icon-active');
   }
 
   toggleButtons() {
