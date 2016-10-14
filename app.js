@@ -5,6 +5,7 @@ import { CREATED, STARTED, PASSED, FAILED } from './constants';
 
 const bulb = new Bulb();
 const travis = new Travis();
+let intervalId = null;
 
 function setEventHandlers() {
   const btnConnect = document.querySelector('.btn-connect');
@@ -20,7 +21,7 @@ function setEventHandlers() {
   btnConnect.addEventListener('click', bulb.connect.bind(bulb));
 
   // Turn on or off
-  turnOnOff.addEventListener('click', bulb.turnOnOff.bind(bulb));
+  turnOnOff.addEventListener('click', toggleOnOff);
 
   // Color controls
   redOn.addEventListener('click', bulb.red.bind(bulb));
@@ -31,10 +32,25 @@ function setEventHandlers() {
   btnStartTravis.addEventListener('click', initTravis);
 }
 
+function toggleOnOff() {
+  if (bulb.checkOn()) {
+    clearInterval(intervalId);
+  }
+
+  bulb.turnOnOff();
+}
+
 function initTravis() {
+  const turnOnOff = document.querySelector('.input');
+
   travis.init();
 
-  setInterval(() => {
+  if (! bulb.checkOn() ) {
+    bulb.turnOn();
+    turnOnOff.setAttribute('checked', true);
+  }
+
+  intervalId = setInterval(() => {
     console.log(travis.status);
 
     switch (travis.status) {

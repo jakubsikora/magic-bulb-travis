@@ -47,6 +47,10 @@ class Bulb {
     turnedOn = false;
   }
 
+  checkOn() {
+    return turnedOn;
+  }
+
   turnOn() {
     let data = new Uint8Array([0xcc, 0x23, 0x33]);
     return ledCharacteristic.writeValue(data)
@@ -71,7 +75,7 @@ class Bulb {
     if (turnedOn) {
       this.turnOff();
     } else {
-      this.turnOn();
+      this.turnOn().then(() => this.white());
     }
   }
 
