@@ -17,3 +17,5 @@ The idea is very simple:
 - AngularConnect organisers for Magic Bulb http://angularconnect.com/2016/iot-gift/
 
 ## Please note this is hack quality code, there is a lot of room for improvements:)
+
+![](https://media.giphy.com/media/3oz8xTZuyMsA9rna8g/giphy.gif)
