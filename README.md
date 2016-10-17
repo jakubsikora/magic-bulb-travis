@@ -8,12 +8,12 @@ The idea is very simple:
 
 ## Installation
 1. Run `npm install`.
-2. Copy `config.js.template` to `config.js` and update settings.
+2. Rename `config.js.template` to `config.js` and update settings.
 3. Run `npm start`
 4. Have fun!
 
 ## Special Thanks
 - To [Uri Shaked](https://github.com/urish/web-lightbulb), his article https://medium.com/@urish/start-building-with-web-bluetooth-and-progressive-web-apps-6534835959a6#.tkbbzo831 really helped us.
-- AngularConnect organisers for Magic Bulb
+- AngularConnect organisers for Magic Bulb http://angularconnect.com/2016/iot-gift/
 
 ## Please note this is hack quality code, there is a lot of room for improvements:)
