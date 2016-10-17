@@ -1,9 +1,6 @@
-let ledCharacteristic = null;
-let turnedOn = false;
-
 class Bulb {
   constructor() {
-    this.name = null;
+    this.turnedOn = false;
     this.characteristic = null;
   }
 
@@ -28,7 +25,8 @@ class Bulb {
       })
       .then(characteristic => {
         console.log('All ready!');
-        ledCharacteristic = characteristic;
+        this.characteristic = characteristic;
+        this.turnOff();
         this.onConnected();
       })
       .catch(error => {
@@ -44,35 +42,31 @@ class Bulb {
     document.querySelector('.on-off-switcher').classList.remove('hidden');
     document.querySelector('.connected-icon').classList.remove('hidden');
 
-    turnedOn = false;
-  }
-
-  checkOn() {
-    return turnedOn;
+    this.turnedOn = false;
   }
 
   turnOn() {
     let data = new Uint8Array([0xcc, 0x23, 0x33]);
-    return ledCharacteristic.writeValue(data)
+    return this.characteristic.writeValue(data)
       .catch(err => console.log('Error when turning on! ', err))
       .then(() => {
-          turnedOn = true;
+          this.turnedOn = true;
           this.toggleButtons();
       });
   }
 
   turnOff() {
     let data = new Uint8Array([0xcc, 0x24, 0x33]);
-    return ledCharacteristic.writeValue(data)
+    return this.characteristic.writeValue(data)
       .catch(err => console.log('Error when turning off! ', err))
       .then(() => {
-          turnedOn = false;
+          this.turnedOn = false;
           this.toggleButtons();
       });
   }
 
-  turnOnOff() {
-    if (turnedOn) {
+  toggleOn() {
+    if (this.turnedOn) {
       this.turnOff();
       this.deactivate();
     } else {
@@ -97,57 +91,53 @@ class Bulb {
 
   toggleButtons() {
     Array.from(document.querySelectorAll('.color-buttons button'))
-      .forEach(function(colorButton) {
-        colorButton.disabled = !turnedOn;
+      .forEach(colorButton => {
+        colorButton.disabled = !this.turnedOn;
     });
   }
 
   setColor(red, green, blue) {
-    let data = new Uint8Array([0x56, red, green, blue, 0x00, 0xf0, 0xaa]);
+    const data = new Uint8Array([0x56, red, green, blue, 0x00, 0xf0, 0xaa]);
 
-    return ledCharacteristic.writeValue(data)
-      .catch(err => console.log('Error when writing value! ', err));
+    return this.characteristic.writeValue(data);
   }
 
   setAmberBlink() {
-    let data = new Uint8Array([0xbb, 0x29, 0x01, 0x44]);
+    const data = new Uint8Array([0xbb, 0x29, 0x01, 0x44]);
 
-    return ledCharacteristic.writeValue(data)
-      .catch(err => console.log('Error when writing value! ', err));
+    return this.characteristic.writeValue(data);
   }
 
   setBlueBlink() {
-    let data = new Uint8Array([0xbb, 0x28, 0x01, 0x44]);
+    const data = new Uint8Array([0xbb, 0x28, 0x01, 0x44]);
 
-    return ledCharacteristic.writeValue(data)
-      .catch(err => console.log('Error when writing value! ', err));
+    return this.characteristic.writeValue(data);
   }
 
   setRedBlink() {
-    let data = new Uint8Array([0xbb, 0x26, 0x01, 0x44]);
+    const data = new Uint8Array([0xbb, 0x26, 0x01, 0x44]);
 
-    return ledCharacteristic.writeValue(data)
-      .catch(err => console.log('Error when writing value! ', err));
+    return this.characteristic.writeValue(data);
+  }
+
+  pink() {
+    return this.setColor(255, 192, 203);
   }
 
   red() {
-    return this.setColor(255, 0, 0)
-      .then(() => console.log('Color set to Red'));
+    return this.setColor(255, 0, 0);
   }
 
   green() {
-    return this.setColor(0, 255, 0)
-      .then(() => console.log('Color set to Green'));
+    return this.setColor(0, 255, 0);
   }
 
   blue() {
-    return this.setColor(0, 0, 255)
-      .then(() => console.log('Color set to blue'));
+    return this.setColor(0, 0, 255);
   }
 
   white() {
-    return this.setColor(255, 255, 255)
-      .then(() => console.log('Color set to white'));
+    return this.setColor(255, 255, 255);
   }
 }
 

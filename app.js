@@ -1,11 +1,23 @@
 import './assets/css/app.less';
 import Bulb from './src/bulb';
 import Travis from './src/travis';
-import { CREATED, STARTED, PASSED, FAILED } from './constants';
+import config from './config';
+import { CREATED, STARTED, PASSED, FAILED, TRAVIS_FAILED } from './constants';
 
 const bulb = new Bulb();
 const travis = new Travis();
 let intervalId = null;
+
+function populateRepositories() {
+  const selectRepository = document.getElementById('repository');
+  let optionsHTML = '';
+
+  config.GITHUB_REPOS.forEach(repo => {
+    optionsHTML += `<option value="${repo}">${repo}</option>`
+  });
+
+  selectRepository.innerHTML = optionsHTML;
+}
 
 function setEventHandlers() {
   const btnConnect = document.querySelector('.btn-connect');
@@ -35,7 +47,7 @@ function setEventHandlers() {
 function toggleOnOff() {
   const travisStatus = document.querySelector('.travis-status');
 
-  if (bulb.checkOn()) {
+  if (bulb.turnedOn) {
     clearInterval(intervalId);
     travisStatus.innerHTML = '';
   } else {
@@ -44,7 +56,7 @@ function toggleOnOff() {
     travisStatus.innerHTML = 'Waiting for user...';
   }
 
-  bulb.turnOnOff();
+  bulb.toggleOn();
 }
 
 function initTravis() {
@@ -79,8 +91,15 @@ function initTravis() {
       case FAILED:
         bulb.setRedBlink();
         document.querySelector('.travis-status').classList.add('alert-danger');
+        travisStatus.innerHTML = 'Travis build failed :/';
+      break;
+
+      case TRAVIS_FAILED:
+        bulb.pink();
+        document.querySelector('.travis-status').classList.add('alert-danger');
         travisStatus.innerHTML = 'Travis failed :/';
       break;
+
 
       default:
         bulb.setBlueBlink();
@@ -97,4 +116,5 @@ function clearAlert() {
   document.querySelector('.travis-status').classList.remove('alert-success');
 }
 
+populateRepositories();
 setEventHandlers();

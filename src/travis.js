@@ -1,5 +1,6 @@
 import axios from 'axios';
 import config from '../config';
+import { TRAVIS_FAILED } from '../constants';
 
 const API_URL = 'https://api.travis-ci.com';
 const API_HEADERS = {
@@ -55,12 +56,15 @@ class Travis {
 
     return axios({
       method: 'get',
-      url: `${API_URL}/repos/Pure360/${repository}/builds`,
+      url: `${API_URL}/repos/${config.GITHUB_ACCOUNT_NAME}/${repository}/builds`,
       headers,
       dataType: 'json',
     })
     .then(response => {
       return response.data.builds[0].state;
+    })
+    .catch((e) => {
+      return TRAVIS_FAILED;
     });
   }
 }
